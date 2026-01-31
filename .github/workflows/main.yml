@@ -7,8 +7,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      # Forzamos que el archivo se llame main.py para que Buildozer no se pierda
       - name: Rename file to main.py
-        run: mv snake_game-Cel.py main.py
+        run: |
+          mv snake_game-Cel.py main.py || mv snake_game-cel.py main.py
 
       - name: Build with Buildozer
         uses: ArtemSerebrennikov/buildozer-action@v1
