@@ -7,10 +7,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # Forzamos que el archivo se llame main.py para que Buildozer no se pierda
-      - name: Rename file to main.py
+      # Este paso busca tu archivo se llame como se llame y lo prepara
+      - name: Prepara el archivo principal
         run: |
-          mv snake_game-Cel.py main.py || mv snake_game-cel.py main.py
+          find . -name "*.py" -exec mv {} main.py \;
+          echo "Archivo preparado correctamente"
 
       - name: Build with Buildozer
         uses: ArtemSerebrennikov/buildozer-action@v1
