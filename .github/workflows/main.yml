@@ -1,0 +1,23 @@
+name: Build APK
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Rename file to main.py
+        run: mv snake_game-Cel.py main.py
+
+      - name: Build with Buildozer
+        uses: ArtemSerebrennikov/buildozer-action@v1
+        with:
+          buildozer_version: master
+          command: buildozer -v android debug
+          
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: MiJuegoSnake
+          path: bin/*.apk
