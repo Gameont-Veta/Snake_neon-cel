@@ -7,11 +7,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # Este paso busca tu archivo se llame como se llame y lo prepara
+      # Este paso busca tu archivo ignore si es mayúscula o minúscula
       - name: Prepara el archivo principal
         run: |
-          find . -name "*.py" -exec mv {} main.py \;
-          echo "Archivo preparado correctamente"
+          find . -maxdepth 1 -name "*.py" ! -name "main.py" -exec mv {} main.py \;
+          echo "Archivo Python detectado y renombrado a main.py"
 
       - name: Build with Buildozer
         uses: ArtemSerebrennikov/buildozer-action@v1
