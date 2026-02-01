@@ -1,26 +1,16 @@
 name: Build APK
 on: [push, pull_request]
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-
-      # Este paso busca tu archivo ignore si es mayúscula o minúscula
-      - name: Prepara el archivo principal
-        run: |
-          find . -maxdepth 1 -name "*.py" ! -name "main.py" -exec mv {} main.py \;
-          echo "Archivo Python detectado y renombrado a main.py"
-
       - name: Build with Buildozer
         uses: ArtemSerebrennikov/buildozer-action@v1
         with:
-          buildozer_version: master
           command: buildozer -v android debug
-          
       - name: Upload APK
         uses: actions/upload-artifact@v2
         with:
-          name: MiJuegoSnake
+          name: MiJuego
           path: bin/*.apk
